@@ -2,6 +2,7 @@ import pool from '../lib/utils/pool.js';
 import setup from '../data/setup.js';
 import request from 'supertest';
 import app from '../lib/app.js';
+import Dog from '../lib/models/Dog.js';
 // import Dog from '../lib/models/Dog.js';
 
 // CRUD
@@ -14,7 +15,7 @@ describe('dog routes', () => {
     return setup(pool);
   });
 
-  it('creates a dog via POST', async () => {
+  test('creates a dog via POST', async () => {
     const res = await request(app)
       .post('/api/v1/dogs')
       .send({ name: 'spot', age: 5, weight: '20 lbs' });
@@ -26,4 +27,41 @@ describe('dog routes', () => {
       weight: '20 lbs',
     });
   });
+  test('finds all dogs via GET', async () => {
+    const spot = await Dog.insert({
+      name: 'spot',
+      age: 5,
+      weight: '20 lbs'
+    });
+
+    const wilma = await Dog.insert({
+      name: 'wilma',
+      age: 3,
+      weight: '25 lbs'
+    });
+
+    const denali = await Dog.insert({
+      name: 'denali',
+      age: 3,
+      weight: '78 lbs'
+    });
+
+    const res = await request(app)
+      .get('/api/v1/dogs');
+
+    expect(res.body).toEqual([spot, wilma, denali]);
+
+  });
+
+
+  //   it('finds a dog by id via GET', async () => {
+  //     const dog = await Dog.insert({
+  //       name: 'rover',
+  //       age: 10,
+  //       weight: '50 lbs',
+  //     });
+  //     const res = await request(app).get(`/api/v1/dogs/${dog.id}`);
+
+//     expect(res.body).toEqual(dog);
+//   });
 });
