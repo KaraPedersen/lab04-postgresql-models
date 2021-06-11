@@ -66,6 +66,22 @@ describe('dog routes', () => {
     expect(res.body).toEqual(dog);
   });
 
+  test('update a dog via PUT', async () => {
+    const dog = await Dog.insert({
+      name: 'harley',
+      age: 3,
+      weight: '55 lbs'
+    });
+
+    dog.age = 21;
+
+    const res = await request(app)
+      .put(`/api/v1/dogs/${dog.id}`)
+      .send(dog);
+
+    expect(res.body).toEqual(dog);
+  });
+
 
   //   it('finds a dog by id via GET', async () => {
   //     const dog = await Dog.insert({
