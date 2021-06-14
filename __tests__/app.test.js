@@ -92,7 +92,7 @@ describe('dog routes', () => {
       age: 8,
       weight: '20 lbs'
     });
-
+    
     const res = await request(app)
       .delete(`/api/v1/dogs/${dog.id}`)
       .send(dog);
