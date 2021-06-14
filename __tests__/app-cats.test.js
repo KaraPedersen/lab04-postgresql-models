@@ -64,4 +64,20 @@ describe('cat routes', () => {
 
     expect(res.body).toEqual(cat);
   });
+
+  test('update a cat via PUT', async () => {
+    const cat = await Cat.insert({
+      name: 'snowball',
+      age: 4,
+      weight: '8 lbs'
+    });
+
+    cat.age = 28;
+
+    const res = await request(app)
+      .put(`/api/v1/cats/${cat.id}`)
+      .send(cat);
+
+    expect(res.body).toEqual(cat);
+  });
 });
