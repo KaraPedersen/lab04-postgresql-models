@@ -80,4 +80,18 @@ describe('cat routes', () => {
 
     expect(res.body).toEqual(cat);
   });
+
+  test('delete a cat via DELETE', async () => {
+    const cat = await Cat.insert({
+      name: 'blackie',
+      age: 2,
+      weight: '5 lbs'
+    });
+
+    const res = await request(app)
+      .delete(`/api/v1/cats/${cat.id}`)
+      .send(cat);
+
+    expect(res.body).toEqual(cat);
+  });
 });
