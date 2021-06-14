@@ -52,4 +52,18 @@ describe('dolphin routes', () => {
 
     expect(res.body).toEqual([finn, betty, diego]);
   });
+
+  test('find a dolphin via GET', async () => {
+    const dolphin = await Dolphin.insert({
+      name: 'flipper',
+      age: 10,
+      weight: '400 lbs'
+    });
+
+    const res = await request(app)
+      .get(`/api/v1/dolphins/${dolphin.id}`);
+
+    expect(res.body).toEqual(dolphin);
+  });
+
 });
