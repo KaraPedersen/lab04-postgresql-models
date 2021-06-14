@@ -51,4 +51,17 @@ describe('cat routes', () => {
     expect(res.body).toEqual([calvin, scarlet, bubbaton]);
 
   });
+
+  test('find a cat via GET', async () => {
+    const cat = await Cat.insert({
+      name: 'sarah',
+      age: 5,
+      weight: '12 lbs'
+    });
+   
+    const res = await request(app)
+      .get(`/api/v1/cats/${cat.id}`);
+
+    expect(res.body).toEqual(cat);
+  });
 });
