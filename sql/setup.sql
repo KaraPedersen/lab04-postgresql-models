@@ -7,9 +7,3 @@ CREATE TABLE dogs (
   weight TEXT
 );
 
--- CREATE TABLE dogs (
---   id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY, 
---   name TEXT NOT NULL,
---   age INTERGER NOT NULL,
---   weight TEXT
--- );
